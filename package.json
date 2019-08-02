@@ -1,0 +1,104 @@
+{
+  "name": "aliyun-oss-upload-image",
+  "displayName": "aliyun oss upload image",
+  "description": "截图上传阿里云oss插件",
+  "version": "1.0.0",
+  "publisher": "vvkee",
+  "author": {
+    "name": "vvkee",
+    "email": "weizongqi926@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vvkee/vscode-aliyun-upload-image.git"
+  },
+  "homepage": "https://github.com/vvkee/vscode-aliyun-upload-image",
+  "bugs": {
+    "url": "https://github.com/vvkee/vscode-aliyun-upload-image/issues"
+  },
+  "engines": {
+    "vscode": "^1.30.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "keybindings": [
+      {
+        "command": "extension.aliyun.upload",
+        "key": "shift+p",
+        "mac": "shift+p",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+      },
+      {
+        "command": "extension.aliyun.select",
+        "key": "shift+o",
+        "mac": "shift+o",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "aliyun oss upload image configuration",
+      "properties": {
+        "aliyun.region": {
+          "type": "string",
+          "default": "",
+          "description": "地区，在阿里云对象存储中bucket的概览里面有EndPoint（地域节点），oss-cn-hongkong.aliyuncs.com中的oss-cn-hongkong就是region"
+        },
+        "aliyun.accessKeyId": {
+          "type": "string",
+          "default": "",
+          "description": "accessKeyId（RAM中生成的accessKeyId）"
+        },
+        "aliyun.accessKeySecret": {
+          "type": "string",
+          "default": "",
+          "description": "accessKeySecret（RAM中生成的accessKeySecret）"
+        },
+        "aliyun.bucket": {
+          "type": "string",
+          "default": "",
+          "description": "输入你的bucket名称"
+        },
+        "aliyun.remotePath": {
+          "type": "string",
+          "default": "",
+          "description": "remotePath，您的存储目录，例如要把文件存在http://${你的yuming}/images/png，则这里填写images/png）"
+        },
+        "aliyun.domain": {
+          "type": "string",
+          "default": "",
+          "description": "阿里云oss域名，可以定义自己的域名，需要在oss中配置，支持https"
+        },
+        "aliyun.localPath": {
+          "type": "string",
+          "default": "/tmp/.aliyun",
+          "description": "本地文件，用于临时缓存（默认: /tmp/.aliyun）"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
+    "eslint": "^5.11.1",
+    "mocha": "^5.2.0",
+    "typescript": "^3.2.2",
+    "vscode": "^1.0.0"
+  },
+  "dependencies": {
+    "ali-oss": "^6.0.2",
+    "axios": "^0.18.0",
+    "moment": "^2.18.1",
+    "shelljs": "^0.8.3"
+  }
+}
