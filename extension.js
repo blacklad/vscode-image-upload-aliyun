@@ -6,7 +6,6 @@ const { spawn } = require('child_process');
 const aliyunUpload = require('./lib/upload');
 
 exports.activate = (context) => {
-    console.log('aliyun-upload-image is active!')
     const disposable = vscode.commands.registerCommand('extension.aliyun.upload', () => {
         vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,
@@ -89,7 +88,7 @@ function getImagePath(filePath, selectText, localPath) {
     // 图片名称
     let imageFileName = '';
     if (!selectText) {
-        imageFileName = moment().format("Y-MM-DD-HH-mm-ss") + '.png';
+        imageFileName = moment().format("YYYYMMDDHHmmssSS") + '.png';
     } else {
         imageFileName = selectText + '.png';
     }

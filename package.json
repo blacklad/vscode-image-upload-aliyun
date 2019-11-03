@@ -3,18 +3,10 @@
   "displayName": "aliyun oss upload image",
   "description": "截图上传阿里云oss插件",
   "version": "1.0.0",
-  "publisher": "vvkee",
+  "publisher": "blacklad",
   "author": {
-    "name": "vvkee",
-    "email": "weizongqi926@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vvkee/vscode-aliyun-upload-image.git"
-  },
-  "homepage": "https://github.com/vvkee/vscode-aliyun-upload-image",
-  "bugs": {
-    "url": "https://github.com/vvkee/vscode-aliyun-upload-image/issues"
+    "name": "blacklad",
+    "email": "blacklad@163.com"
   },
   "engines": {
     "vscode": "^1.30.0"
@@ -30,14 +22,8 @@
     "keybindings": [
       {
         "command": "extension.aliyun.upload",
-        "key": "shift+p",
-        "mac": "shift+p",
-        "when": "editorTextFocus && editorLangId == 'markdown'"
-      },
-      {
-        "command": "extension.aliyun.select",
-        "key": "shift+o",
-        "mac": "shift+o",
+        "key": "ctrl+shift+p",
+        "mac": "cmd+shift+p",
         "when": "editorTextFocus && editorLangId == 'markdown'"
       }
     ],
@@ -68,7 +54,7 @@
         "aliyun.remotePath": {
           "type": "string",
           "default": "",
-          "description": "remotePath，您的存储目录，例如要把文件存在http://${你的yuming}/images/png，则这里填写images/png）"
+          "description": "remotePath，您的存储目录，例如要把文件存在http://${你的域名}/images/，则这里填写images）"
         },
         "aliyun.domain": {
           "type": "string",
@@ -77,8 +63,8 @@
         },
         "aliyun.localPath": {
           "type": "string",
-          "default": "/tmp/.aliyun",
-          "description": "本地文件，用于临时缓存（默认: /tmp/.aliyun）"
+          "default": "d://temp",
+          "description": "本地文件，用于临时缓存"
         }
       }
     }
@@ -97,7 +83,7 @@
   },
   "dependencies": {
     "ali-oss": "^6.0.2",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "moment": "^2.18.1",
     "shelljs": "^0.8.3"
   }
