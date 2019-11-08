@@ -21,9 +21,9 @@
   "contributes": {
     "keybindings": [
       {
-        "command": "extension.aliyun.upload",
-        "key": "ctrl+shift+p",
-        "mac": "cmd+shift+p",
+        "command": "extension.upload",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p",
         "when": "editorTextFocus && editorLangId == 'markdown'"
       }
     ],

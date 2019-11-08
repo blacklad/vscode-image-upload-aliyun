@@ -6,14 +6,17 @@ const { spawn } = require('child_process');
 const aliyunUpload = require('./lib/upload');
 
 exports.activate = (context) => {
-    const disposable = vscode.commands.registerCommand('extension.aliyun.upload', () => {
+    const disposable = vscode.commands.registerCommand('extension.upload', () => {
         vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,
 			title: "上传图片",
 			cancellable: false
 		}, (progress, token) => {
-            progress.report({ increment: 0 });
-			start(progress);
+            return new Promise(resolve => {
+                progress.report({ increment: 0 });
+                start(progress);
+                resolve()
+            })
 		});
         
     });
@@ -46,8 +49,8 @@ function start(progress) {
         return;
     }
     let filePath = fileUri.fsPath;
-    let imagePath = getImagePath(filePath, selectText, localPath);
-    const mdFilePath = editor.document.fileName;
+    let imageFileName = moment().format('YYYYMMDDHHmmssSS') + (Math.floor(Math.random() * 90) + 10) + ".png";
+    let imagePath = getImagePath(filePath, imageFileName, localPath);
 
     progress.report({ increment: 10, message: "Uploading..." });
     createImageDirWithImagePath(imagePath).then(imagePath => {
@@ -61,12 +64,17 @@ function start(progress) {
             }
             vscode.window.showInformationMessage(config.remotePath);
             progress.report({ increment: 80, message: "Uploading..." });
-            aliyunUpload(config, imagePath, mdFilePath).then(({ name, url }) => {
+            aliyunUpload(config, imagePath, imageFileName).then(({ name, url }) => {
                 progress.report({ increment: 99, message: "Uploading..." });
                 if (config.domain) {
                     url = url.replace(`http://${config.bucket}.${config.region}.aliyuncs.com`, config.domain)
                 }
-                const img = `![${name}](${url})`;
+                let image = ''
+                if (selectText) {
+                    img = `![${selectText}](${url})`;
+                } else {
+                    img = `![${name}](${url})`;
+                }
                 editor.edit(textEditorEdit => {
                     textEditorEdit.insert(editor.selection.active, img)
                 });
@@ -84,15 +92,7 @@ function start(progress) {
     });
 }
 
-function getImagePath(filePath, selectText, localPath) {
-    // 图片名称
-    let imageFileName = '';
-    if (!selectText) {
-        imageFileName = moment().format("YYYYMMDDHHmmssSS") + '.png';
-    } else {
-        imageFileName = selectText + '.png';
-    }
-
+function getImagePath(filePath, imageFileName, localPath) {
     // 图片本地保存路径
     let folderPath = path.dirname(filePath);
     let imagePath = '';
