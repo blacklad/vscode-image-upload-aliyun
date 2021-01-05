@@ -83,7 +83,7 @@
   },
   "dependencies": {
     "ali-oss": "^6.0.2",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "moment": "^2.18.1",
     "shelljs": "^0.8.3"
   }
